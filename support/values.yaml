@@ -6,10 +6,15 @@ nginx-ingress:
       annotations:
         prometheus.io/scrape: "true"
   controller:
+    config:
+      # Allow POSTs of upto 64MB, for large notebook support.
+      proxy-body-size: 64m
     stats:
       enabled: true
     service:
       loadBalancerIP: 35.184.96.239
+      # Preserve client IPs
+      externalTrafficPolicy: Local
 
 kube-lego:
   config:
